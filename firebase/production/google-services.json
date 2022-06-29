@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "1011404310923",
+    "project_id": "praktek-io",
+    "storage_bucket": "praktek-io.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011404310923:android:37886224352e6e4b79078e",
+        "android_client_info": {
+          "package_name": "io.praktek"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011404310923-do9g4g8rb2jmbnvtvphqpde3g5o1ruak.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.praktek",
+            "certificate_hash": "1aaeb6560b83923cf6e0265f48f6a420be535d8f"
+          }
+        },
+        {
+          "client_id": "1011404310923-va49tfijfhip4o3nnemc1c3uh4i6dq3r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.praktek",
+            "certificate_hash": "3f6e370ef96d2734cbbae2af6f6a615bb89daf5f"
+          }
+        },
+        {
+          "client_id": "1011404310923-p9k91dfvtkpshej9qqag3c9eh0i46g8f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChBbZrPPF-BNrn0yym6VJ9O7ZY69y7tXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011404310923-p9k91dfvtkpshej9qqag3c9eh0i46g8f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1011404310923-34jeh7gptn6sr9qm81phsi8uuncdns5t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.praktek"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
