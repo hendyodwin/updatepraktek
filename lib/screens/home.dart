@@ -34,6 +34,8 @@ class _HomeState extends State<Home> {
   final _mainLazy = Get.lazyPut(() => MainController());
 
   var _selectedIndex = 0;
+
+
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);
@@ -45,8 +47,7 @@ class _HomeState extends State<Home> {
       // await prefs.setBool('seen', false);
       if (Get.find<AuthController>().user == null) {
         Get.to(() => Login());
-      }
-      ;
+      };
     }
   }
 

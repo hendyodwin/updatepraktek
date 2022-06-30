@@ -24,7 +24,7 @@ class DoctorChatScreen extends StatelessWidget {
     Stream<DocumentSnapshot> documentStream =
         _db.collection('chatroom').doc(this.roomId).snapshots();
 
-    final ChatScreenController controller = Get.put(ChatScreenController());
+      final ChatScreenController controller = Get.put(ChatScreenController());
     controller.isDoctorScreen.value = true;
     controller.orderId.value = orderId;
     return Obx(

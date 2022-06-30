@@ -32,7 +32,9 @@ class MessagesListController extends GetxController {
     var responseCek = await http.get(urlCek, headers: headers);
 
     print("HI respon");
-    print('$apiUrl'+'/api/profiles/99');
+
+    print('$apiUrl/api/appointments?filters[users_permissions_user][0]=${Get.find<AuthController>().user_id_db.value}&filters[type][1]=chat&sort[0]=createdAt&populate[0]=*&populate[1]=doctor.profile_picture&populate[2]=doctor.doctor_specialty&populate[3]=doctor_availability');
+
     print( jsonDecode(responseCek.body));
 
     var data = jsonDecode(responseCek.body)['data'];

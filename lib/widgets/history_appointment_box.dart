@@ -9,10 +9,12 @@ import 'package:praktek_app/screens/doctor_booking_payment_confirmation.dart';
 import 'package:praktek_app/screens/join_room.dart';
 
 class HistoryAppointmentBox extends StatelessWidget {
-  const HistoryAppointmentBox({Key? key, required this.appointment, required this.type})
+  const HistoryAppointmentBox(
+      {Key? key, required this.appointment, required this.type})
       : super(key: key);
   final Map appointment;
   final int type;
+
   @override
   Widget build(BuildContext context) {
     final currencyFormatter = NumberFormat('#,##0', 'ID');
@@ -20,6 +22,25 @@ class HistoryAppointmentBox extends StatelessWidget {
     return InkWell(
       onTap: () {
         print('Appointment Clicked');
+
+        DateTime tempAppointmentDate = DateTime.parse(
+            appointment['attributes']['doctor_availability']['data']['attributes']['start'])
+            .toLocal();
+
+
+print(appointment['attributes']);
+        if (new DateTime.now().isAfter(tempAppointmentDate) && appointment['attributes']['paid'] == true) {
+          // Get.to(() => JoinRoom(appointment: appointment,));
+        } else {
+          Get.snackbar('Video Call Appointment',
+              "Waktu konsultasi anda belum terlewati. Mohon menunggu hingga waktu konsultasi anda",
+              snackPosition: SnackPosition.BOTTOM,
+              colorText: Colors.white,
+              backgroundColor: kPrimary);
+
+          print("Appointment time : " + tempAppointmentDate.toIso8601String() +
+              " Current Time :" + new DateTime.now().toIso8601String());
+        }
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 16.0),
@@ -57,11 +78,12 @@ class HistoryAppointmentBox extends StatelessWidget {
                                   color: kSecondary,
                                   borderRadius: BorderRadius.circular(8.0),
                                   border:
-                                      Border.all(color: Colors.grey.shade300)),
+                                  Border.all(color: Colors.grey.shade300)),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: CachedNetworkImage(
-                                  imageUrl: appointment['attributes']['doctor']['data']['attributes']['profile_picture']['data']['attributes']['formats']['medium'] == null
+                                  imageUrl: appointment['attributes']['doctor']['data']['attributes']['profile_picture']['data']['attributes']['formats']['medium'] ==
+                                      null
                                       ? appointment['attributes']['doctor']
                                   ['data']['attributes']
                                   ['profile_picture']['data']
@@ -93,7 +115,7 @@ class HistoryAppointmentBox extends StatelessWidget {
                                     padding: EdgeInsets.all(2.0),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(5.0),
+                                        BorderRadius.circular(5.0),
                                         side: BorderSide(color: Colors.white)),
                                   ),
                                 )),
@@ -108,12 +130,14 @@ class HistoryAppointmentBox extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            appointment['attributes']['doctor']['data']['attributes']['full_name'] ?? '-',
+                            appointment['attributes']['doctor']['data']['attributes']['full_name'] ??
+                                '-',
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            appointment['attributes']['doctor']['data']['attributes']['doctor_specialty']['data']['attributes']['name'] ?? '-',
+                            appointment['attributes']['doctor']['data']['attributes']['doctor_specialty']['data']['attributes']['name'] ??
+                                '-',
                             style: TextStyle(
                                 fontSize: 11,
                                 fontWeight: FontWeight.bold,
@@ -140,7 +164,9 @@ class HistoryAppointmentBox extends StatelessWidget {
                           ),
                           Text(
                             (DateFormat('dd/MM/yyyy').format(
-                                DateTime.parse(appointment['attributes']['doctor_availability']['data']['attributes']['start']).toLocal()).toString()) ,
+                                DateTime.parse(
+                                    appointment['attributes']['doctor_availability']['data']['attributes']['start'])
+                                    .toLocal()).toString()),
                             style: TextStyle(fontSize: 12),
                           )
                         ],
@@ -156,7 +182,9 @@ class HistoryAppointmentBox extends StatelessWidget {
                           ),
                           Text(
                             (DateFormat('HH:mm').format(
-                                DateTime.parse(appointment['attributes']['doctor_availability']['data']['attributes']['start']).toLocal()).toString()) ,
+                                DateTime.parse(
+                                    appointment['attributes']['doctor_availability']['data']['attributes']['start'])
+                                    .toLocal()).toString()),
                             style: TextStyle(fontSize: 12),
                           )
                         ],
@@ -171,19 +199,26 @@ class HistoryAppointmentBox extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Rp. ${currencyFormatter.format(appointment['attributes']['amount'])}',
+                        'Rp. ${currencyFormatter.format(
+                            appointment['attributes']['amount'])}',
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),
-                      type==3 || type==0?
+                      type == 3 || type == 0 ?
                       InkWell(
-                        onTap: (){
-                          if(type==3){
-                            Get.find<BookingDetailController>().lastOrderId.value = appointment['id'];
+                        onTap: () {
+                          if (type == 3) {
+                            Get
+                                .find<BookingDetailController>()
+                                .lastOrderId
+                                .value = appointment['id'];
                             Get.to(() => DoctorBookingPaymentConfirmation());
                           }
-                          if(type==0){
-                            Get.find<BookingDetailController>().lastOrderId.value = appointment['id'];
+                          if (type == 0) {
+                            Get
+                                .find<BookingDetailController>()
+                                .lastOrderId
+                                .value = appointment['id'];
                             Get.to(() => JoinRoom(appointment: appointment,));
                           }
                         },
@@ -193,7 +228,7 @@ class HistoryAppointmentBox extends StatelessWidget {
                             padding: const EdgeInsets.all(4.0),
                             child: Center(
                               child: Text(
-                                type==3?"Payment":"Join",
+                                type == 3 ? "Payment" : "Join",
                                 style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.white,
@@ -204,9 +239,9 @@ class HistoryAppointmentBox extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
                               gradient:
-                                  LinearGradient(colors: [kPrimary, kSecondary])),
+                              LinearGradient(colors: [kPrimary, kSecondary])),
                         ),
-                      ):Container()
+                      ) : Container()
                     ],
                   ),
                 ),

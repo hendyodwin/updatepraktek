@@ -199,8 +199,7 @@ class _HomepageState extends State<Homepage> {
                         children: List<Widget>.generate(
                           controller.my_orders_user_patient_video.length,
                           (index) => AppointmentBox(
-                            appointment:
-                                controller.my_orders_user_patient_video[index],
+                            appointment: controller.my_orders_user_patient_video[index],
                           ),
                         ),
                       )

@@ -112,8 +112,7 @@ class History extends StatelessWidget {
                 ),
               ),
               Obx(() => controller.selectedIndex.value == 0 &&
-                      controller.my_orders_user_patient_video_upcoming.length ==
-                          0
+                      controller.my_orders_user_patient_video_upcoming.isEmpty
                   ? Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -160,8 +159,7 @@ class History extends StatelessWidget {
                     )
                   : Container()),
               Obx(() => controller.selectedIndex.value == 1 &&
-                      controller.my_orders_user_patient_video_upcoming.length ==
-                          0
+                      controller.my_orders_user_patient_video_done.isEmpty
                   ? Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -209,8 +207,7 @@ class History extends StatelessWidget {
                     )
                   : Container()),
               Obx(() => controller.selectedIndex.value == 3 &&
-                      controller.my_orders_user_patient_video_upcoming.length ==
-                          0
+                      controller.my_orders_user_patient_video_waiting.isEmpty
                   ? Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -258,8 +255,7 @@ class History extends StatelessWidget {
                     )
                   : Container()),
               Obx(() => controller.selectedIndex.value == 2 &&
-                      controller.my_orders_user_patient_video_upcoming.length ==
-                          0
+                      controller.my_orders_user_patient_video_cancelled.isEmpty
                   ? Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,

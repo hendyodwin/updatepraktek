@@ -19,6 +19,7 @@ class DoctorMessagesListController extends GetxController {
   Future<String> getChatList() async {
     isLoading.value = true;
     var token = await Get.find<AuthController>().getToken();
+
     Map<String, String> headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

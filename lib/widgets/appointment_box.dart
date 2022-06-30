@@ -11,6 +11,7 @@ import 'package:praktek_app/screens/join_room.dart';
 class AppointmentBox extends StatelessWidget {
   const AppointmentBox({Key? key, required this.appointment}) : super(key: key);
   final Map appointment;
+
   @override
   Widget build(BuildContext context) {
     debugPrint('==== APPOINTMENT DATA ====');
@@ -18,7 +19,23 @@ class AppointmentBox extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Get.to(() => JoinRoom(appointment: appointment,));
+        DateTime tempAppointmentDate = DateTime.parse(
+            appointment['attributes']['doctor_availability']['data']['attributes']['start'])
+            .toLocal();
+
+
+        if (new DateTime.now().isAfter(tempAppointmentDate)) {
+          Get.to(() => JoinRoom(appointment: appointment,));
+        } else {
+
+          Get.snackbar('Video Call Appointment', "Waktu konsultasi anda belum terlewati. Mohon menunggu hingga waktu konsultasi anda",
+              snackPosition: SnackPosition.BOTTOM,
+              colorText: Colors.white,
+              backgroundColor: kPrimary);
+
+          print("Appointment time : " + tempAppointmentDate.toIso8601String() +
+              " Current Time :" + new DateTime.now().toIso8601String());
+        }
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 16.0),
@@ -56,11 +73,12 @@ class AppointmentBox extends StatelessWidget {
                                   color: kSecondary,
                                   borderRadius: BorderRadius.circular(8.0),
                                   border:
-                                      Border.all(color: Colors.grey.shade300)),
+                                  Border.all(color: Colors.grey.shade300)),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: CachedNetworkImage(
-                                  imageUrl: appointment['attributes']['doctor']['data']['attributes']['profile_picture']['data']['attributes']['formats']['medium'] == null
+                                  imageUrl: appointment['attributes']['doctor']['data']['attributes']['profile_picture']['data']['attributes']['formats']['medium'] ==
+                                      null
                                       ? appointment['attributes']['doctor']
                                   ['data']['attributes']
                                   ['profile_picture']['data']
@@ -92,7 +110,7 @@ class AppointmentBox extends StatelessWidget {
                                     padding: EdgeInsets.all(2.0),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(5.0),
+                                        BorderRadius.circular(5.0),
                                         side: BorderSide(color: Colors.white)),
                                   ),
                                 )),
@@ -108,12 +126,14 @@ class AppointmentBox extends StatelessWidget {
                         children: [
                           Text(
 
-                            appointment['attributes']['doctor']['data']['attributes']['full_name'] ?? '-',
+                            appointment['attributes']['doctor']['data']['attributes']['full_name'] ??
+                                '-',
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            appointment['attributes']['doctor']['data']['attributes']['doctor_specialty']['data']['attributes']['name'] ?? '-',
+                            appointment['attributes']['doctor']['data']['attributes']['doctor_specialty']['data']['attributes']['name'] ??
+                                '-',
                             style: TextStyle(
                                 fontSize: 11,
                                 fontWeight: FontWeight.bold,
@@ -140,7 +160,9 @@ class AppointmentBox extends StatelessWidget {
                           ),
                           Text(
                             (DateFormat('dd/MM/yyyy').format(
-                              DateTime.parse(appointment['attributes']['doctor_availability']['data']['attributes']['start']).toLocal()).toString()) ,
+                                DateTime.parse(
+                                    appointment['attributes']['doctor_availability']['data']['attributes']['start'])
+                                    .toLocal()).toString()),
                             style: TextStyle(fontSize: 12),
                           )
                         ],
@@ -156,7 +178,9 @@ class AppointmentBox extends StatelessWidget {
                           ),
                           Text(
                             (DateFormat('HH:mm').format(
-                                DateTime.parse(appointment['attributes']['doctor_availability']['data']['attributes']['start']).toLocal()).toString()) ,
+                                DateTime.parse(
+                                    appointment['attributes']['doctor_availability']['data']['attributes']['start'])
+                                    .toLocal()).toString()),
                             style: TextStyle(fontSize: 12),
                           )
                         ],

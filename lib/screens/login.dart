@@ -210,7 +210,7 @@ class _LoginState extends State<Login> {
                                   padding: const EdgeInsets.all(15.0),
                                   child: Center(
                                     child: Text(
-                                      "Masuk dgn nomor handphone",
+                                      "Masuk dengan nomor handphone",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),

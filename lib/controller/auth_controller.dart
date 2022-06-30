@@ -405,11 +405,15 @@ class AuthController extends GetxController {
     print('Is there a token? => ${theToken}');
     // theToken == '';
     if (theToken == '') {
+
       var token = await FirebaseAuth.instance.currentUser!.getIdToken();
       print(token);
+
       var urlAuth = Uri.parse('$apiUrl/api/firebase/auth');
+
       print('$apiUrl/api/firebase/auth');
       print('Token ==> ${token}');
+
       var responseCekAuth = await http.post(urlAuth, body: {"token": token});
       var dataAuth = jsonDecode(responseCekAuth.body);
       print('====== Before Token =======');

@@ -142,6 +142,7 @@ RxBool isDoctorScreen = false.obs;
     if (image != null) {
       _image = File(image.path);
       String fileName = _image.path.split('/').last;
+
       try {
 
         firebase_storage.UploadTask uploadTask = firebase_storage
@@ -194,33 +195,39 @@ RxBool isDoctorScreen = false.obs;
         print(e);
       }
 
-      if (type == 'patient') {
-        if (doctorToken.value != '') {
-          HttpsCallable callable =
-              FirebaseFunctions.instanceFor(region: 'asia-southeast2')
-                  .httpsCallable('sendMessage');
-          final resp = await callable.call(<String, dynamic>{
-            'title': 'Message from ${Get.find<AuthController>().profileName.value}',
-            'content': textField.text,
-            'type': 'chat',
-            'token': doctorToken.value,
-          });
-          print("result: ${resp.data}");
+      try{
+        if (type == 'patient') {
+          if (doctorToken.value != '') {
+            HttpsCallable callable =
+            FirebaseFunctions.instanceFor(region: 'asia-southeast2')
+                .httpsCallable('sendMessage');
+            final resp = await callable.call(<String, dynamic>{
+              'title': 'Message from ${Get.find<AuthController>().profileName.value}',
+              'content': textField.text,
+              'type': 'chat',
+              'token': doctorToken.value,
+            });
+            print("result: ${resp.data}");
+          }
+        } else {
+          if (patientToken.value != '') {
+            HttpsCallable callable =
+            FirebaseFunctions.instanceFor(region: 'asia-southeast2')
+                .httpsCallable('sendMessage');
+            final resp = await callable.call(<String, dynamic>{
+              'title': 'Message from ${Get.find<AuthController>().profileName.value}',
+              'content': textField.text,
+              'type': 'chat',
+              'token': patientToken.value,
+            });
+            print("result: ${resp.data}");
+          }
         }
-      } else {
-        if (patientToken.value != '') {
-          HttpsCallable callable =
-              FirebaseFunctions.instanceFor(region: 'asia-southeast2')
-                  .httpsCallable('sendMessage');
-          final resp = await callable.call(<String, dynamic>{
-            'title': 'Message from ${Get.find<AuthController>().profileName.value}',
-            'content': textField.text,
-            'type': 'chat',
-            'token': patientToken.value,
-          });
-          print("result: ${resp.data}");
-        }
+      }on Exception catch (e) {
+        print("send FirebaseFunctions exception");
+        print(e);
       }
+
       textField.text = "";
     }
   }

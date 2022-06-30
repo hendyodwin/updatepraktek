@@ -35,8 +35,11 @@ class DoctorHistoryController extends GetxController {
     var urlCek = Uri.parse(
         '$apiUrl/api/appointments?filters[doctor][0]=${Get.find<AuthController>().my_doctor_id.value}&filters[type][1]=video&filters[paid][2]=1&filters[doctor_availability][start][\$gt][3]=${DateTime.now().add(const Duration(minutes: -30)).toUtc()}&sort[0]=createdAt&populate[0]=*&populate[1]=doctor.profile_picture&populate[2]=doctor.doctor_specialty&populate[3]=doctor_availability&populate[4]=profile.profile_picture');
     var responseCek = await http.get(urlCek, headers: headers);
+
     var data = jsonDecode(responseCek.body)['data'];
+
     my_orders_user_patient_video_upcoming.value = data;
+
     urlCek = Uri.parse(
         '$apiUrl/api/appointments?filters[doctor][0]=${Get.find<AuthController>().my_doctor_id.value}&filters[type][1]=video&filters[paid][2]=1&filters[doctor_availability][start][\$lt][3]=${DateTime.now().add(const Duration(minutes: -30)).toUtc()}&sort[0]=createdAt&populate[0]=*&populate[1]=doctor.profile_picture&populate[2]=doctor.doctor_specialty&populate[3]=doctor_availability&populate[4]=profile.profile_picture');
     responseCek = await http.get(urlCek, headers: headers);

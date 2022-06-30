@@ -151,6 +151,9 @@ class MessageCard extends StatelessWidget {
     DebugTools().printWrapped(messageData.toString());
     return InkWell(
       onTap: () {
+
+
+
         if (messageData['attributes']['paid']) {
           Get.to(() => DoctorChatScreen(
                 orderId: messageData['id'].toString(),
@@ -177,21 +180,21 @@ class MessageCard extends StatelessWidget {
                   Container(
                     width: 60,
                     height: 60,
-                    // child: CircleAvatar(
-                    //   backgroundColor: kPrimary,
-                    //   backgroundImage: CachedNetworkImageProvider(
-                    //     messageData['attributes']['profile']['data']
-                    //                     ['attributes']['profile_picture']['data']
-                    //                 ['attributes']['formats']['medium'] ==
-                    //             null
-                    //         ? messageData['attributes']['profile']['data']
-                    //                 ['attributes']['profile_picture']['data']
-                    //             ['attributes']['formats']['thumbnail']['url']
-                    //         : messageData['attributes']['profile']['data']
-                    //                 ['attributes']['profile_picture']['data']
-                    //             ['attributes']['formats']['medium']['url'],
-                    //   ),
-                    // ),
+                    child: CircleAvatar(
+                      backgroundColor: kPrimary,
+                      backgroundImage: CachedNetworkImageProvider(
+                        messageData['attributes']['profile']['data']
+                                        ['attributes']['profile_picture']['data']
+                                    ['attributes']['formats']['medium'] ==
+                                null
+                            ? messageData['attributes']['profile']['data']
+                                    ['attributes']['profile_picture']['data']
+                                ['attributes']['formats']['thumbnail']['url']
+                            : messageData['attributes']['profile']['data']
+                                    ['attributes']['profile_picture']['data']
+                                ['attributes']['formats']['medium']['url'],
+                      ),
+                    ),
                   ),
                   Positioned(
                     bottom: -4,
@@ -215,9 +218,11 @@ class MessageCard extends StatelessWidget {
             title: Padding(
               padding: const EdgeInsets.only(top: 12.0),
               child: Text(
+
                 messageData['attributes']['profile']['data']['attributes']
                         ['name'] ??
-                    '-',
+                    '-'
+                 ,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,

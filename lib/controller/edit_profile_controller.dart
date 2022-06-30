@@ -21,6 +21,7 @@ class EditProfileController extends GetxController {
   RxString orderId = ''.obs;
   RxInt profileId = 0.obs;
   RxString dateToSave = ''.obs;
+
   final formKey = GlobalKey<FormState>();
   TextEditingController fullNameController = TextEditingController();
   TextEditingController PoBController = TextEditingController();
